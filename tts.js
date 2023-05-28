@@ -78,7 +78,8 @@ app.post("/tts", jsonParser, async (req, res) => {
   }
 });
 app.get("/duckduckgo", async (req, res) => {
-  const question = "simpsons characters";
+  // Récupérer la question de la requête
+  const question = req.query.q;
   const url = new URL("https://api.duckduckgo.com/");
   url.searchParams.set("q", question);
   url.searchParams.set("format", "json");
