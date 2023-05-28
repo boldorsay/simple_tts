@@ -27,6 +27,7 @@ app.post("/tts", jsonParser, async (req, res) => {
     // The text to synthesize
     console.log("text to synthesize: " + req.body.text);
     const text = req.body.text;
+    // const voice = req.body.voice;
 
     const requestBody = {
       input: {
@@ -75,6 +76,45 @@ app.post("/tts", jsonParser, async (req, res) => {
         console.error("Error:", error);
       });
   }
+});
+app.get("/duckduckgo", async (req, res) => {
+  const question = "simpsons characters";
+  const url = new URL("https://api.duckduckgo.com/");
+  url.searchParams.set("q", question);
+  url.searchParams.set("format", "json");
+  url.searchParams.set("pretty", "1");
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      res
+        .status(500)
+        .json({ error: "An error occurred with the DuckDuckGo API request." });
+    });
+});
+
+app.post("/duckduckgo", jsonParser, async (req, res) => {
+  const question = req.body.question;
+  const url = new URL("https://api.duckduckgo.com/");
+  url.searchParams.set("q", question);
+  url.searchParams.set("format", "json");
+  url.searchParams.set("pretty", "1");
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      res
+        .status(500)
+        .json({ error: "An error occurred with the DuckDuckGo API request." });
+    });
 });
 
 app.listen(PORT, () => console.log(`Sever is running port ${PORT} ...`));
