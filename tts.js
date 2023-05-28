@@ -100,6 +100,7 @@ app.get("/duckduckgo", async (req, res) => {
 
 app.post("/duckduckgo", jsonParser, async (req, res) => {
   const question = req.body.question;
+  console.log("question: " + question);
   const url = new URL("https://api.duckduckgo.com/");
   url.searchParams.set("q", question);
   url.searchParams.set("format", "json");
