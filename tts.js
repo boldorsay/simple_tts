@@ -1,6 +1,8 @@
 require("dotenv").config();
 
 const fs = require("fs/promises");
+const SerpApi = require("google-search-results-nodejs");
+const search = new SerpApi.GoogleSearch(process.env.API_SERPAPI);
 
 const express = require("express");
 var bodyParser = require("body-parser");
@@ -117,6 +119,20 @@ app.post("/duckduckgo", jsonParser, async (req, res) => {
         .status(500)
         .json({ error: "An error occurred with the DuckDuckGo API request." });
     });
+});
+app.post("/search", async (req, res) => {
+  const params = {
+    engine: "google",
+    q: req.body.question,
+    location: "Lausanne",
+    google_domain: "google.com",
+    gl: "ch",
+    hl: "en",
+  };
+
+  search.json(params, (data) => {
+    res.json(data);
+  });
 });
 
 app.listen(PORT, () => console.log(`Sever is running port ${PORT} ...`));
