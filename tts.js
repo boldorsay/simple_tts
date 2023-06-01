@@ -36,8 +36,8 @@ app.post("/tts", jsonParser, async (req, res) => {
         text: req.body.text,
       },
       voice: {
-        languageCode: "it-IT",
-        name: "it-IT-Wavenet-D",
+        languageCode: "fr-FR",
+        name: "fr-FR-Neural2-B",
         // ssmlGender: "Male",
       },
       audioConfig: {
