@@ -45,9 +45,6 @@ app.post("/tts", jsonParser, async (req, res) => {
       },
     };
 
-    "languageCode": "fr-FR",
-    "name": "fr-FR-Neural2-B"
-
     const response = await fetch(
       `https://texttospeech.googleapis.com/v1/text:synthesize?key=${process.env.GOOGLE_API_KEY}`,
       {
